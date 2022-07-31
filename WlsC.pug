@@ -1,0 +1,93 @@
+
+job
+
+  // https://github.com/danielrippa/wlsc
+
+  //
+
+    MIT License
+
+    Copyright (c) 2022 Daniel Rippa
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+
+  script
+
+    include:livescript(bare='true' header='') Prelude.ls
+    include:livescript(bare='true' header='') WlsC.ls
+
+  script: :livescript(bare='true' header='')
+
+    fail 'No parameters given' 1 if argc is 0
+
+    script-name = arg 0
+
+    script = parse-script script-name
+
+    #
+
+    source = <[ job ]>
+
+    add-comment = (comment) !->
+
+      source[*] := indent 3, commented comment
+
+    add-title = (title) ->
+
+      add-comment ''
+      add-comment title
+      add-comment ''
+
+    add-comments = (comments) !->
+
+      for comment in comments => add-comment comment
+      add-comment ''
+
+    ls-element =
+
+      * indent 1, 'script'
+        indent 2, livescript
+
+    #
+
+    for dependency-name, dependency of script.dependencies
+
+      source = source.concat ls-element
+
+      add-title "Livescript dependency file '#dependency-name.ls'"
+
+      add-comments dependency.comments
+
+      source[*] = indent 3, "#dependency-name = do ->"
+
+      for line in dependency.source
+
+        source[*] = indent 2, line
+
+    source = source.concat ls-element
+
+    add-title "WSH Livescript file '#{ script.script-name }'"
+
+    add-comments script.comments
+
+    for line in script.source
+
+      source[*] = indent 2, line
+
+    for line in source => stdout "#line\n"
