@@ -76,6 +76,8 @@ job
 
       source[*] = indent 3, "#dependency-name = do ->"
 
+      source[*] = indent 4, "dependency-name = '#dependency-name'"
+
       for line in dependency.source
 
         source[*] = indent 2, line
