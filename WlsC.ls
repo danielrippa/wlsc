@@ -97,7 +97,12 @@
       if dependency isnt void
 
         dependency-names[*] := dependency
-        source[*] := line
+
+        contains-star = (line.index-of '*') isnt -1
+
+        if not contains-star
+
+          source[*] := line
 
         parsing := 'dependencies'
 
