@@ -90,6 +90,10 @@ job
 
     for line in script.source
 
-      source[*] = indent 2, line
+      contains-star-dependency = (line.index-of '{ * } =') isnt -1
+
+      unless contains-star-dependency
+
+        source[*] = indent 2, line
 
     for line in source => stdout "#line\n"
