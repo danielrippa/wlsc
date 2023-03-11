@@ -69,7 +69,7 @@ E.g.
 
 { fail, stdout } = wsh.Wsh
 { get-args } = wsh.Args
-{ get-eventlog-retention-days } = rsop.EventLogSetting
+{ get-eventlog-retention-days } = os.policies.rsop.EventLogSetting
 
 { log-name } = get-args <[ log-name ]>
 
