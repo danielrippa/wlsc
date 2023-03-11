@@ -35,7 +35,7 @@ The `dependency` keyword can be used in both .wls and .ls files.
 
 ## Comment lines
 
-Comment lines are preserved in the final code if declared immediatly before or after the code using the `dependency` keyword.
+Comment lines are preserved in the final code if declared immediatly before or right after the code using the `dependency` keyword.
 
 E.g.
 
