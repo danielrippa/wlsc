@@ -95,8 +95,7 @@ do ->
   
   {
     network-adapters
-  }
-  
+  }  
 ```
 
 ## Wls file syntax
