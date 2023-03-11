@@ -43,7 +43,7 @@ E.g.
 ```
 do ->
   
-  { wql-instances } = os.wmi.Wql
+  { wql-instances } = dependency os.wmi.Wql
   
   network-adapters = wql-instances 'Win32_NetworkAdapterConfiguration', "IPEnabled = 'True'"
   
@@ -67,9 +67,9 @@ E.g.
 # GetEventLogRetentionDays.wls
 # Returns RSOP (Resultant Set of Policy) EventLog retention days setting
 
-{ fail, stdout } = wsh.Wsh
-{ get-args } = wsh.Args
-{ get-eventlog-retention-days } = os.policies.rsop.EventLogSetting
+{ fail, stdout } = dependency wsh.Wsh
+{ get-args } = dependency wsh.Args
+{ get-eventlog-retention-days } = dependency os.policies.rsop.EventLogSetting
 
 { log-name } = get-args <[ log-name ]>
 
