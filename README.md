@@ -75,7 +75,7 @@ E.g.
       
 ```
 
-All comments before the lines using the dependency keyword and the lines right after them will be preserved in the final .WSF file.
+All comments before the lines using the `dependency` keyword and the lines right after them will be preserved in the final .WSF file.
 
 In the example all comments up to the `new-wmi-moniker` line will be preserved.
 Any comments further in the code will be consumed by the LiveScript compiler as usual.
