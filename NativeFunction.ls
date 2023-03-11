@@ -1,8 +1,7 @@
 
   NativeFunction = do ->
 
-    { trim } = NativeString
-    { text-as-array } = AsciiSeparatedStrings
+    { trim, text-as-array } = NativeString
 
     code-of = (fn) ->
 
