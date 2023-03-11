@@ -2,7 +2,7 @@
   TextFile = do ->
 
     { file-system: fs } = FileSystem
-    { text-as-array } = AsciiSeparatedStrings
+    { text-as-array } = NativeString
 
     io-mode = reading: 1, writing: 2, appending: 8
 
