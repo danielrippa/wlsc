@@ -26,8 +26,8 @@ E.g.
 
 ```
 os c:\scripts\os\
-os.microsoft d:\users\danielr\windows-scripts\
-os.linux h:\linux\scripts\
+os.microsoft.windows d:\users\danielr\windows-scripts\
+os.linux.ubuntu h:\linux\scripts\ubuntu\
 ```
 
 The `dependency` keyword can be used both in .wls and .ls files.
