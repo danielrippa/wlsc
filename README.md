@@ -18,7 +18,7 @@ After compilation a new .WSF file with the same basename as the .WLS one will be
 
 ## Dependency keyword
 
-WlsC introduces the `dependency` keyword in order to be able to access other source files located in arbitrary locations in the filesystem. These locations are expressed as namespaces that can be either actual filesystem folder hierarchies or declared via an additional optional file named `namespaces.conf`.
+WlsC introduces the `dependency` keyword in order to be able to access other source files located in arbitrary locations in the filesystem. These locations are expressed as namespaces that can be either actual filesystem folder hierarchies or virtual namespaces declared via an additional optional file named `namespaces.conf`.
 
 In the optional namespace configuration file `namespaces.conf` namespaces are declared in each line using the following syntax `qualified.namespace <space> actual\filesystem\location`. This allows to declare conceptually unified namespaces located in completely arbitrary filesystem locations.
 
