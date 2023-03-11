@@ -1,7 +1,7 @@
 
   NativeArray = do ->
 
-    { control-code: { cr-lf } } = Ascii
+    { cr-lf } = NativeString
 
     array-as-string = (array, separator) -> array.join separator
 
