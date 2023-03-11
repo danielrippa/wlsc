@@ -33,6 +33,52 @@ os.linux.ubuntu h:\linux\scripts\ubuntu\
 
 The `dependency` keyword can be used both in .wls and .ls files.
 
+## Comment lines
+
+Comment lines are preserved in the final code if declared immediatly before or after the code using the `dependency` keyword.
+
+E.g.
+
+```
+  do ->
+  
+    # os.wmi.monikers.WmiMoniker
+
+    # https://www.itprotoday.com/devops-and-software-development/wmi-monikers
+
+    #   In WMI, you can specify a moniker that returns a reference to the WMI Scripting Library's SWbemServices object,
+    #   which you can use to invoke one of SWbemServices' methods (e.g., ExecQuery, Get, InstancesOf).
+    #   You can specify a moniker that returns a reference to an SWbemObjectSet representing a collection of WMI objects to manage.
+    #   And you can create a moniker that returns a reference to a discrete SWbemObject.
+
+    # https://docs.microsoft.com/en-us/windows/win32/wmisdk/constructing-a-moniker-string
+
+    #   A moniker has the following parts:
+
+    #     The prefix WinMgmts: (mandatory). The prefix instructs the Windows Script Host (WSH) that the following code will be using the Scripting API objects.
+    #     A security settings component (optional)
+    #     A WMI object path component (optional)
+
+    # https://www.itprotoday.com/devops-and-software-development/wmi-monikers
+
+    { array-as-object } = dependency 'NativeArray'
+    { braces } = dependency 'NativeString'
+    { object-as-array } = dependency 'NativeObject'
+    
+    { new-security-setting } = dependency os.wmi.SecuritySetting
+    { new-object-path } = dependency os.wmi.ObjectPath
+
+    # Creates a new wmi moniker using standard defaults if not provided.
+
+    new-wmi-moniker = (prefix = 'WinMgmts', security-settings = new-security-setting!, object-path = new-object-path!) ->
+      ...
+      
+```
+
+All comments before the lines using the dependency keyword and the lines right after them will be preserved in the final .WSF file.
+In the example all comments up to the `new-wmi-moniker` line will be preserved.
+Any comments further in the code will be consumed by the LiveScript compiler as usual.
+
 ## Livescript file syntax
 
 .LS files MUST start with `do ->` in order to avoid polluting the global namespace. Compilation will not continue if `do ->` is missing in .LS files.
@@ -60,7 +106,7 @@ Wls files are the main driver and one .WSF file will be emitted for each .WLS fi
 
 The content of all .LS files referenced with the `dependency` keyword will be included in the .WSF file, even those indirectly  referenced by the .LS files that were also referenced by the .LS files themselves.
 
-WLS files use a slightly different syntax from .LS files so that comment lines are preserved in .WLS files as opposed to comments in .LS files that are consumed and not emitted by the LiveScript compiler.
+WLS files use a slightly different syntax from .LS files where `do ->` is not needed and considered redundant.
 
 E.g.
 
