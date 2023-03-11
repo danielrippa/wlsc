@@ -43,7 +43,13 @@ E.g.
 ```
 do ->
   
+  { wql-instances } = os.wmi.Wql
   
+  network-adapters = wql-instances 'Win32_NetworkAdapterConfiguration', "IPEnabled = 'True'"
+  
+  {
+    network-adapters
+  }
   
 ```
 
