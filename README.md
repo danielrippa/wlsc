@@ -31,7 +31,7 @@ os.microsoft.windows d:\users\danielr\windows-scripts\
 os.linux.ubuntu h:\linux\scripts\ubuntu\
 ```
 
-The `dependency` keyword can be used both in .wls and .ls files.
+The `dependency` keyword can be used in both .wls and .ls files.
 
 ## Comment lines
 
