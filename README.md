@@ -1,6 +1,6 @@
 # wlsc Windows LiveScript Compiler
 
-Takes [LiveScript files](https://livescript.net/) as an input and emits a [Windows Script File](https://en.wikipedia.org/wiki/Windows_Script_File) to be used with [Microsoft cscript](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cscript) as output.
+Takes [LiveScript files](https://livescript.net/) as an input and emits a [Windows Script File](https://en.wikipedia.org/wiki/Windows_Script_File) to be used with [Microsoft cscript](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cscript).
 
 The main file (usually with a .wls file extension) uses a slightly different syntax from the livescript ones (usually with a .ls file extension).
 
@@ -14,7 +14,7 @@ E. g.
 WLSC somescript.wls
 ```
 
-Atfer compilation a new .WSF file with the same basename as the .WLS one will be created.
+After compilation a new .WSF file with the same basename as the .WLS one will be created.
 
 ## Dependency keyword
 
@@ -32,8 +32,44 @@ os.linux h:\linux\scripts\
 
 The `dependency` keyword can be used both in .wls and .ls files.
 
+## Livescript file syntax
+
+.LS files MUST start with `do ->` in order to avoid polluting the global namespace. Compilation will not continue if `do ->` is missing in .LS files.
+Other .LS files can be referenced using the `dependency` keyword.
+.LS files must return an object whose members can be used in the referencing files.
+
+E.g.
+
+```
+do ->
+  
+  
+  
+```
+
 ## Wls file syntax
 
 Wls files are the main driver and one .WSF file will be emitted for each .WLS file.
 
-## Livescript file syntax
+The content of all .LS files referenced with the `dependency` keyword will be included in the .WSF file, even those indirectly  referenced by the .LS files that were also referenced by the .LS files themselves.
+
+WLS files use a slightly different syntax from .LS files so that comment lines are preserved in .WLS files as opposed to comments in .LS files that are consumed and not emitted by the LiveScript compiler.
+
+E.g.
+
+```
+# GetEventLogRetentionDays.wls
+# Returns RSOP (Resultant Set of Policy) EventLog retention days setting
+
+{ fail, stdout } = wsh.Wsh
+{ get-args } = wsh.Args
+{ get-eventlog-retention-days } = rsop.EventLogSetting
+
+{ log-name } = get-args <[ log-name ]>
+
+if log-name is void => fail "Missing log-name argument."
+
+retention-days = get-eventlog-retention-days log-name
+stdout "Event Log #log-name retention days: #retention-days"
+
+```
