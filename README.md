@@ -15,6 +15,7 @@ WLSC somescript.wls
 ```
 
 After compilation a new .WSF file with the same basename as the .WLS one will be created.
+Code in all referenced dependencies will be included in the final .WSF output file.
 
 ## Dependency keyword
 
