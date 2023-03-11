@@ -56,8 +56,8 @@ E.g.
     #   A moniker has the following parts:
 
     #     The prefix WinMgmts: (mandatory). The prefix instructs the Windows Script Host (WSH) that the following code will be using the Scripting API objects.
-    #     A security settings component (optional)
-    #     A WMI object path component (optional)
+    #     A security settings component (optional).
+    #     A WMI object path component (optional).
 
     # https://www.itprotoday.com/devops-and-software-development/wmi-monikers
 
