@@ -2,7 +2,7 @@
 
 Takes [LiveScript files](https://livescript.net/) as an input and emits a [Windows Script File](https://en.wikipedia.org/wiki/Windows_Script_File) to be used with [Microsoft cscript](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cscript).
 
-The main file (usually with a .wls file extension) uses a slightly different syntax from the livescript ones (usually with a .ls file extension).
+The main file (usually with a .wls file extension) references livescript ones (usually with a .ls file extension) who in turn can further reference other .ls files.
 
 ## How to use
 
