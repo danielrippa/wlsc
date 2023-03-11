@@ -61,9 +61,9 @@ E.g.
 
     # https://www.itprotoday.com/devops-and-software-development/wmi-monikers
 
-    { array-as-object } = dependency 'NativeArray'
-    { braces } = dependency 'NativeString'
-    { object-as-array } = dependency 'NativeObject'
+    { array-as-object } = dependency native.NativeArray
+    { braces } = dependency native.NativeString
+    { object-as-array } = dependency native.NativeObject
     
     { new-security-setting } = dependency os.wmi.SecuritySetting
     { new-object-path } = dependency os.wmi.ObjectPath
