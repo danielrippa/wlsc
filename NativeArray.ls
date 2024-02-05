@@ -1,25 +1,21 @@
 
   NativeArray = do ->
 
-    { cr-lf } = NativeString
+    first-item = (.0)
+    last-item = -> index = it.length - 1 ; it[index]
 
-    array-as-string = (array, separator) -> array.join separator
+    map-items = (items, fn) -> [ (fn item, index) for item,index in items ]
 
-    array-as-text = (array, separator = cr-lf) -> array-as-string array, separator
+    array-as-object = (items) -> { [ item, item ] for item in items }
 
-    map-values = (array, fn) -> [ (fn value, index) for value,index in array ]
+    drop-first = (items, n = 1) -> items.slice n
 
-    first-value = (array) -> array.0
-
-    last-value = (array) -> position = array.length - 1 ; array[position]
-
-    drop-first = (array, n = 1) -> array.slice n
-
-    drop-last = (array, n = 1) -> array.slice 0, -n
+    drop-last = (items, n = 1) -> items.slice 0, -n
 
     {
-      array-as-string, array-as-text,
-      map-values,
-      first-value, last-value,
+      first-item,
+      last-item,
+      map-items,
+      array-as-object,
       drop-first, drop-last
     }

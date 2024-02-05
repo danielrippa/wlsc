@@ -2,18 +2,13 @@
   ObjectFile = do ->
 
     { read: read-textfile } = TextFile
-    { text-as-array } = AsciiSeparatedStrings
-    { trim } = NativeString
+    { text-as-array, trim } = NativeString
 
     read = (filename) ->
 
       instance = {}
 
-      content = read-textfile filename
-
-      lines = text-as-array content
-
-      for line, index in lines
+      for line in read-textfile filename
 
         trimmed = trim line
 
@@ -31,10 +26,10 @@
 
         else
 
-          name = line.slice 0, index
+          key = line.slice 0, index
           value = line.slice index + 1
 
-          instance[name] = value
+          instance[key] = value
 
       instance
 

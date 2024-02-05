@@ -1,45 +1,33 @@
 job: script
 
-  include:livescript(bare='true' header='') Exception.ls
-  include:livescript(bare='true' header='') Wsh.ls
+  include:livescript(bare=true) Wsh.ls
+  include:livescript(bare=true) NativeString.ls
+  include:livescript(bare=true) NativeArray.ls
+  include:livescript(bare=true) NativeFunction.ls
+  include:livescript(bare=true) FileSystem.ls
+  include:livescript(bare=true) TextFile.ls
+  include:livescript(bare=true) ObjectFile.ls
+  include:livescript(bare=true) Shell.ls
 
-  include:livescript(bare='true' header='') NativeString.ls
-  include:livescript(bare='true' header='') NativeArray.ls
-  include:livescript(bare='true' header='') NativeObject.ls
-  include:livescript(bare='true' header='') NativeFunction.ls
+  include:livescript(bare=true) WlsC.ls
 
-  include:livescript(bare='true' header='') FileSystem.ls
-  include:livescript(bare='true' header='') TextFile.ls
-  include:livescript(bare='true' header='') ObjectFile.ls
-
-  include:livescript(bare='true' header='') Shell.ls
-
-  include:livescript(bare='true' header='') WlscUtils.ls
-  include:livescript(bare='true' header='') LivescriptParser.ls
-
-  include:livescript(bare='true' header='') WlscNamespacePathResolver.ls
-  include:livescript(bare='true' header='') WlscDependencyFactory.ls
-  include:livescript(bare='true' header='') WlscDependencyManager.ls
-  include:livescript(bare='true' header='') WlscScriptComposer.ls
-
-  :livescript(bare='true' header='')
+  :livescript(bare=true)
 
     { argc, arg, fail, script-name } = Wsh
-    { parse-filename } = FileSystem
+    { parse-filepath } = FileSystem
 
     if argc is 0 => fail do
 
       * "Usage:"
-        "#{ parse-filename script-name .name } wls-filename."
+        "#{ parse-filepath script-name .name } wls-filename."
 
-    ##
+    #
 
     { stdout } = Wsh
-    { compose-wls-script } = WlsScriptComposer
+    { build-wsf-script } = WlsC
 
-    filename = arg 0
+    wls-filename = arg 0
 
-    script-lines = compose-wls-script filename
+    wsf-script-lines = build-wsf-script wls-filename
 
-    for line in script-lines => stdout '\n', line
-
+    for line in wsf-script-lines => stdout '\n', line

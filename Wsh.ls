@@ -1,16 +1,14 @@
 
   Wsh = do ->
 
-    { try-catch } = Exception
-
     ws = WScript
 
-    script-name = ws.ScriptName
+      script-name = ..ScriptName
 
-    ws.Arguments.Unnamed
+      ..Arguments.Unnamed
 
-      arg = -> ..Item it
-      argc = ..Count
+        arg = -> ..Item it
+        argc = ..Count
 
     exit = (errorlevel = 0) !-> ws.Quit errorlevel
 
@@ -28,22 +26,9 @@
         if message isnt void
       exit errorlevel
 
-    fail-with = ([ errorlevel = 1, message = '' ], proc) !->
-
-      { failed, failure-description } = try-catch proc
-
-      if failed
-
-        if message isnt void
-          message = text message
-          failure-description = "#message\n#failure-description"
-
-        fail failure-description, errorlevel
-
     {
       script-name,
       arg, argc,
-      exit, fail, fail-with,
+      exit, fail,
       stdout, stderr
     }
-

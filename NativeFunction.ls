@@ -7,8 +7,8 @@
 
       code = fn.to-string!
 
-        range-start = ..index-of '{'
-        range-end = ..last-index-of '}'
+        range-start = ..index-of "{"
+        range-end   = ..last-index-of "}"
 
       code
 

@@ -3,57 +3,55 @@
 
     file-system = -> new ActiveXObject 'Scripting.FileSystemObject'
 
-    fso = file-system!
+    fs = file-system!
 
-    file-exists = -> fso.FileExists it
-    folder-exists = -> fso.FolderExists it
+    file-exists = -> fs.FileExists it
+    folder-exists = -> fs.FolderExists it
 
-    absolute-path = -> fso.GetAbsolutePathName it
+    absolute-path = -> fs.GetAbsolutePathName it
 
-    build-path = (path, filename) -> fso.BuildPath path, filename
+    build-path = (path, filename) -> fs.BuildPath path, filename
 
-    get-filename-path = (filename) ->
+    get-parent-folder = (path) ->
 
-      index = filename.last-index-of '\\'
-      if index is -1 then '' else filename.slice index
-
-    get-parent-folder = (filename) ->
-
-      path = fso.GetParentFolderName filename
+      parent-folder = fs.GetParentFolderName path
 
       index = path.index-of ':'
 
       if (index) isnt -1
+        parent-folder = parent-folder.slice index + 1
 
-        path = path.slice index + 1
+      parent-folder
 
-      path
+    parse-filepath = ->
 
-    parse-filename = (filename) ->
-
-      fso
+      fs
 
         return
 
-          name: ..GetBaseName filename
-          extension: ..GetExtensionName filename
-          drive: ..GetDriveName filename
-          path: get-parent-folder filename
+          name: ..GetBaseName it
+          extension: ..GetExtensionName it
+          drive: ..GetDriveName it
+          path: get-parent-folder it
 
-    normalize-filename = (filename, required-extension) ->
+    normalize-filepath = (filepath, required-extension) ->
 
-      { name, extension, drive, path } = parse-filename filename
+      { name, extension, drive, path } = parse-filepath filepath
 
-      if extension is '' then extension = required-extension
+      extension = required-extension \
+        if extension is ''
 
-      if drive isnt ''
-        path = "#drive#path"
+      path = "#drive#path" \
+        if drive isnt ''
 
       build-path path, "#name.#extension"
 
     {
       file-system,
-      file-exists, folder-exists, absolute-path,
+      get-parent-folder,
+      parse-filepath,
+      absolute-path,
       build-path,
-      parse-filename, normalize-filename
+      normalize-filepath,
+      file-exists, folder-exists
     }
