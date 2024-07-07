@@ -223,8 +223,6 @@
 
         namespace-path = configuration-namespaces[qualified-namespace]
 
-        WScript.Echo namespace-path
-
         return namespace-path unless namespace-path is void
 
         resolve-configuration-namespace-path qualified-namespace
