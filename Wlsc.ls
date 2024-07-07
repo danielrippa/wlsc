@@ -209,9 +209,33 @@
 
       #
 
-      resolve-namespace-path = (qualified-namespace) ->
+      resolve-configuration-namespace-path = (qualified-namespace) ->
+
+        root-configuration-namespace = configuration-namespaces['.']
+
+        if root-configuration-namespace isnt void
+
+          namespaces = qualified-namespace / '.'
+
+          ([ root-configuration-namespace ] ++ namespaces) * '\\'
+
+      get-configuration-namespace-path = (qualified-namespace) ->
 
         namespace-path = configuration-namespaces[qualified-namespace]
+
+        WScript.Echo namespace-path
+
+        return namespace-path unless namespace-path is void
+
+        resolve-configuration-namespace-path qualified-namespace
+
+      #
+
+      resolve-namespace-path = (qualified-namespace) ->
+
+        # namespace-path = configuration-namespaces[qualified-namespace]
+
+        namespace-path = get-configuration-namespace-path qualified-namespace
 
         if namespace-path is void
 
