@@ -255,6 +255,7 @@
 
           * "Unable to read dependency '#qualified-dependency-name'."
             "File '#file-path' not found."
+            "Check your 'namespaces.conf' file."
           3
 
       try dependency-lines = read-textfile file-path
@@ -264,6 +265,7 @@
 
           * "Unable to read dependency '#qualified-dependency-name'."
             e.message
+            "Check your 'namespaces.conf' file."
           3
 
       dependency-lines
@@ -332,7 +334,8 @@
 
           fail do
 
-            "Unable to resolve path of dependency '#qualified-dependency-name'."
+            * "Unable to resolve path of dependency '#qualified-dependency-name'."
+              "Check your 'namespaces.conf' file."
             5
 
         if not folder-exists namespace-path
@@ -341,6 +344,7 @@
 
             * "Unable to resolve path of dependency '#qualified-dependency-name'."
               "Folder '#namespace-path' not found."
+              "Check your 'namespaces.conf' file."
             6
 
         file-path = void
