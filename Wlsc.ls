@@ -111,7 +111,11 @@
 
             continue if (trim line) is ''
 
-            continue if is-comment line
+            if is-comment line
+
+              livescript-source ++= indent 2, comment trim line
+
+              continue
 
             if is-reference line
 
